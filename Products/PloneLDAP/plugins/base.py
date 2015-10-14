@@ -14,7 +14,7 @@ from Products.PluggableAuthService.interfaces.plugins import \
     IRolesPlugin, IPropertiesPlugin, IGroupEnumerationPlugin
 
 from Products.LDAPUserFolder.LDAPDelegate import filter_format as _filter_format
-from Products.LDAPUserFolder.utils import GROUP_MEMBER_MAP, to_utf8
+from Products.LDAPUserFolder.utils import GROUP_MEMBER_MAP, encoding
 from Products.PlonePAS.plugins.group import PloneGroup
 from zope.annotation.interfaces import IAnnotations
 from zope.globalrequest import getRequest
@@ -202,7 +202,7 @@ class PloneLDAPPluginBaseMixin:
             if id_attr == 'objectGUID' else _filter_format
         search_str = '(&(|{ids})(|{ocs}))'.format(
             ids=''.join(filter_format('(%s=%s)',
-                                      (id_attr, to_utf8(id))) for id in ids),
+                                      (id_attr, id.encode(encoding))) for id in ids),
             ocs=''.join(filter_format('(%s=%s)', ('objectClass', oc))
                                       for oc in GROUP_MEMBER_MAP.keys())
         )
