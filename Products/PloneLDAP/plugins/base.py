@@ -211,7 +211,7 @@ class PloneLDAPPluginBaseMixin:
                                       attrs=(),
                                       filter=search_str)
         if search['exception']:
-            logger.warn('Exception (%s)', result['exception'])
+            logger.warn('Exception (%s)', search['exception'])
             logger.warn('searchstring "%s"', search_str)
 
         searchGroups_out = ({k: v[0] for k, v in x.items() if len(v) > 0}
