@@ -38,10 +38,18 @@ class PloneActiveDirectoryMultiPlugin(PloneLDAPPluginBaseMixin,
         a few groups are present. In Plone we know this in advance thanks to
         the 'many groups' setting.
         """
+        if exact_match and id:
+            group = self.prefetched_groups.get(id)
+            if group is False:
+                return ()
+            elif group is not None:
+                return [group]
         if not id and not kw:
             kw["cn"]=""
-        return ActiveDirectoryMultiPlugin.enumerateGroups(self, id,
-                exact_match, sort_by, max_results, **kw)
+        result = ActiveDirectoryMultiPlugin.enumerateGroups(
+            self, id, exact_match, sort_by, max_results, **kw)
+        self.prefetched_groups.update((x['id'], x) for x in results)
+        return results
 
 
 classImplements(

@@ -1,6 +1,7 @@
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from Products.PloneLDAP.property import LDAPPropertySheet
+from Products.PlonePAS.plugins.group import PloneGroup
 
 class UserPropertiesMixin:
     """Implement Products.PluggableAuthService.interfaces.plugins.IPropertiesPlugin
@@ -11,6 +12,8 @@ class UserPropertiesMixin:
     security.declarePrivate('getPropertiesForUser')
     def getPropertiesForUser(self, user, request=None):
         """ Fullfill PropertiesPlugin requirements """
+        if isinstance(user, PloneGroup):
+           return None
         try:
             return LDAPPropertySheet(self.id, user)
         except KeyError:
