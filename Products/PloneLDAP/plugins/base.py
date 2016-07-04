@@ -14,7 +14,7 @@ from Products.PluggableAuthService.interfaces.plugins import \
     IRolesPlugin, IPropertiesPlugin, IGroupEnumerationPlugin
 
 from Products.LDAPUserFolder.LDAPDelegate import filter_format as _filter_format
-from Products.LDAPUserFolder.utils import GROUP_MEMBER_MAP, encoding
+from Products.LDAPUserFolder.utils import GROUP_MEMBER_MAP, encoding, guid2string
 from Products.PlonePAS.plugins.group import PloneGroup
 from zope.annotation.interfaces import IAnnotations
 from zope.globalrequest import getRequest
