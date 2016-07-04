@@ -19,6 +19,9 @@ from Products.PlonePAS.plugins.group import PloneGroup
 from zope.annotation.interfaces import IAnnotations
 from zope.globalrequest import getRequest
 
+# Monkey-patch LDAPUserFolder
+import Products.PloneLDAP.plugins.lufmonkey
+
 logger = logging.getLogger("PloneLDAP")
 prefetch_logger = logger.getChild('prefetch')
 
