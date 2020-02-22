@@ -1,8 +1,12 @@
+# coding=utf-8
 from Acquisition import aq_inner
+from Products.CMFPlone.utils import safe_unicode
 from Products.PluggableAuthService.utils import classImplements
 from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
 from Products.PlonePAS.interfaces.propertysheets import IMutablePropertySheet
-from Products.PloneLDAP._utils import safe_unicode
+
+
+import six
 
 
 class LDAPPropertySheet(UserPropertySheet):
@@ -32,7 +36,7 @@ class LDAPPropertySheet(UserPropertySheet):
 
         # Do not pretend to have any properties if the user is not in LDAP
         if ldap_user is None:
-            raise KeyError, "User not in LDAP"
+            raise KeyError("User not in LDAP")
 
         for (ldapname, zopename, type) in self._ldapschema:
             if ldap_user._properties.get(ldapname, None) is not None:
@@ -71,7 +75,7 @@ class LDAPPropertySheet(UserPropertySheet):
             value=safe_unicode(value)
             if key in schema and self._properties[key]!=value:
                 if schema[key][1]=="lines":
-                    if isinstance(value, basestring):
+                    if isinstance(value, six.text_type):
                         value=value.splitlines()
                     value=[x.strip() for x in value]
                     changes[schema[key][0]]=value
@@ -136,4 +140,3 @@ class LDAPPropertySheet(UserPropertySheet):
 
 classImplements(LDAPPropertySheet,
                             IMutablePropertySheet)
-
