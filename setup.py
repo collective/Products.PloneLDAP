@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.3.dev0'
+version = '2.0.0a1'
 
 setup(name='Products.PloneLDAP',
       version=version,

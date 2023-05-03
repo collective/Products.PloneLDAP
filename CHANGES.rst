@@ -1,8 +1,8 @@
 Changes
 =======
 
-1.3 (unreleased)
-----------------
+2.0.0a1 (2023-05-03)
+--------------------
 
 * Fix setProperties to not set a None value.
   [allusa]
